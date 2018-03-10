@@ -115,7 +115,7 @@ function OpenCloakroomMenu()
           RequestModel(model)
           while not HasModelLoaded(model) do
             RequestModel(model)
-            Citizen.Wait(1)
+            Citizen.Wait(10)
           end
 
           SetPlayerModel(PlayerId(), model)
@@ -417,7 +417,7 @@ function OpenCloakroomMenu()
           RequestModel(model)
           while not HasModelLoaded(model) do
             RequestModel(model)
-            Citizen.Wait(0)
+            Citizen.Wait(10)
           end
 
           SetPlayerModel(PlayerId(), model)
@@ -428,7 +428,7 @@ function OpenCloakroomMenu()
           RequestModel(model)
           while not HasModelLoaded(model) do
             RequestModel(model)
-            Citizen.Wait(0)
+            Citizen.Wait(10)
           end
 
           SetPlayerModel(PlayerId(), model)
@@ -448,7 +448,7 @@ function OpenCloakroomMenu()
           RequestModel(model)
           while not HasModelLoaded(model) do
             RequestModel(model)
-            Citizen.Wait(0)
+            Citizen.Wait(10)
           end
 
           SetPlayerModel(PlayerId(), model)
@@ -459,7 +459,7 @@ function OpenCloakroomMenu()
           RequestModel(model)
           while not HasModelLoaded(model) do
             RequestModel(model)
-            Citizen.Wait(0)
+            Citizen.Wait(10)
           end
 
           SetPlayerModel(PlayerId(), model)
@@ -479,7 +479,7 @@ function OpenCloakroomMenu()
           RequestModel(model)
           while not HasModelLoaded(model) do
             RequestModel(model)
-            Citizen.Wait(0)
+            Citizen.Wait(10)
           end
 
           SetPlayerModel(PlayerId(), model)
@@ -490,7 +490,7 @@ function OpenCloakroomMenu()
           RequestModel(model)
           while not HasModelLoaded(model) do
             RequestModel(model)
-            Citizen.Wait(0)
+            Citizen.Wait(10)
           end
 
           SetPlayerModel(PlayerId(), model)
@@ -828,7 +828,8 @@ function OpenPoliceActionsMenu()
               {label = _U('out_the_vehicle'), value = 'out_the_vehicle'},
               {label = _U('fine'),            value = 'fine'},
 			  --{label = _U('license_check'),   value = 'license_see'},
-			  {label = _U('jail'),			  value = 'jail'}
+			  {label = _U('jail'),			  value = 'jail'},
+			  {label = _U('license_check'),         value = 'license'}
             },
           },
           function(data2, menu2)
@@ -864,8 +865,8 @@ function OpenPoliceActionsMenu()
               if data2.current.value == 'fine' then
                 OpenFineMenu(player)
               end
-			  if data2.current.value == 'license_see' then
-				TriggerServerEvent('esx_policejob:license_see', GetPlayerServerId(player))
+			  if data2.current.value == 'license' then
+				ShowPlayerLicense(player)
 			  end
 			  if data2.current.value == 'jail' then
 				JailPlayer(GetPlayerServerId(player))
@@ -2060,7 +2061,7 @@ Citizen.CreateThread(function()
 
   while true do
 
-    Citizen.Wait(0)
+    Citizen.Wait(10)
 
     local playerPed = GetPlayerPed(-1)
     local coords    = GetEntityCoords(playerPed)
@@ -2109,7 +2110,7 @@ end)
 Citizen.CreateThread(function()
   while true do
 
-    Citizen.Wait(0)
+    Citizen.Wait(10)
 
     if CurrentAction ~= nil then
 
@@ -2190,3 +2191,29 @@ Citizen.CreateThread(function()
 
   end
 end)
+
+function ShowPlayerLicense(player)
+	local elements = {}
+	TriggerServerEvent('esx_license:getLicenses', player, function (licenses)
+		for i=1, #licenses, 1 do
+			table.insert(elements, { label = licenses[i].label, value = licenses[i].type })
+		end
+	end)
+
+	ESX.UI.Menu.CloseAll()
+
+	ESX.UI.Menu.Open(
+		'default', GetCurrentResourceName(), 'license_manage',
+		{
+			title    = _U('license_retract'),
+			elements = elements
+		},
+		function (data, menu)
+			TriggerServerEvent('esx_license:removeLicense', player, data.current.value, nil)
+			menu.close()
+		end,
+		function (data, menu)
+			menu.close()
+		end
+	)
+end

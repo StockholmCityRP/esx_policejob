@@ -1,5 +1,7 @@
 Locales['sv'] = {
   -- Custom
+  ['license_check'] = 'hantera licenser',
+  ['license_retract'] = 'återkalla licens',
   ['jail'] = 'Fängelse',
   ['jail_menu_info'] = 'Fängelsetid i minuter',
   ['get_object'] = 'ta objekt',

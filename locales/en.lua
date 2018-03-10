@@ -1,11 +1,6 @@
 Locales['en'] = {
   -- Custom
   ['license_check'] = 'Manage licenses',
-  ['license_weapon'] = 'Weapon license',
-  ['license_dmv'] = 'DMV license',
-  ['license_drivers'] = 'Driver\'s license',
-  ['license_bike'] = 'Motorcycle licence',
-  ['license_truck'] = 'Truck license',
   ['license_retract'] = 'Withdraw license',
   ['del_license_1'] = 'Withdrew the',
   ['del_license_2'] = 'license that belonged to ',
