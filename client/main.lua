@@ -1151,6 +1151,7 @@ end
 
 function OpenBodySearchMenu(player)
 
+  TriggerEvent('esx:showNotification', GetPlayerServerId(player), _U('being_searched'))
   ESX.TriggerServerCallback('esx_policejob:getOtherPlayerData', function(data)
 
     local elements = {}

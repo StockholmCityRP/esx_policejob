@@ -6,6 +6,7 @@ Locales['sv'] = {
   ['retracted_msg2'] = '~w~ som tillhörde dig!',
   ['you_retracted_msg1'] = 'du återkallade ~y~',
   ['you_retracted_msg2'] = '~w~ som tillhörde ~b~',
+  ['being_searched'] = 'du blir ~y~visiterad~w~ av ~b~Polisen~w~',
   ['jail'] = 'Fängelse',
   ['jail_menu_info'] = 'Fängelsetid i minuter',
   ['get_object'] = 'ta objekt',
