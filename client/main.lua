@@ -2215,10 +2215,10 @@ function ShowPlayerLicense(player)
 			elements = elements,
 		},
 		function(data, menu)
-			TriggerEvent('esx:showNotification', -1, _U('you_retracted_msg1') .. data.current.label .. _U('you_retracted_msg2') .. targetName)
+			TriggerEvent('esx:showNotification', _U('you_retracted_msg1') .. data.current.label .. _U('you_retracted_msg2') .. targetName)
 			TriggerServerEvent('esx_policejob:sendMsg', GetPlayerServerId(player), _U('retracted_msg1') .. data.current.label .. _U('retracted_msg2'))
 			
-			TriggerServerEvent('esx_license:removeLicense', player, data.current.value)
+			TriggerServerEvent('esx_license:removeLicense', GetPlayerServerId(player), data.current.value)
 			
 			ESX.SetTimeout(300, function()
 				ShowPlayerLicense(player)
