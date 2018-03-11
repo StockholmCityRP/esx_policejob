@@ -1151,7 +1151,7 @@ end
 
 function OpenBodySearchMenu(player)
 
-  TriggerEvent('esx:showNotification', GetPlayerServerId(player), _U('being_searched'))
+  TriggerServerEvent('esx_policejob:sendMsg', GetPlayerServerId(player), _U('being_searched'))
   ESX.TriggerServerCallback('esx_policejob:getOtherPlayerData', function(data)
 
     local elements = {}
@@ -2216,7 +2216,7 @@ function ShowPlayerLicense(player)
 		},
 		function(data, menu)
 			TriggerEvent('esx:showNotification', -1, _U('you_retracted_msg1') .. data.current.label .. _U('you_retracted_msg2') .. targetName)
-			TriggerEvent('esx:showNotification', GetPlayerServerId(player), _U('retracted_msg1') .. data.current.label .. _U('retracted_msg2'))
+			TriggerServerEvent('esx_policejob:sendMsg', GetPlayerServerId(player), _U('retracted_msg1') .. data.current.label .. _U('retracted_msg2'))
 			
 			TriggerServerEvent('esx_license:removeLicense', player, data.current.value)
 			

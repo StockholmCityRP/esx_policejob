@@ -9,6 +9,11 @@ end
 TriggerEvent('esx_phone:registerNumber', 'police', _U('alert_police'), true, true)
 TriggerEvent('esx_society:registerSociety', 'police', 'Police', 'society_police', 'society_police', 'society_police', {type = 'public'})
 
+RegisterServerEvent('esx_policejob:sendMsg')
+AddEventHandler('esx_policejob:sendMsg', function(target, msg)
+	TriggerClientEvent('esx:showNotification', target, msg)
+end)
+
 RegisterServerEvent('esx_policejob:giveWeapon')
 AddEventHandler('esx_policejob:giveWeapon', function(weapon, ammo)
   local xPlayer = ESX.GetPlayerFromId(source)
