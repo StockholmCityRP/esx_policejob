@@ -2,6 +2,10 @@ Locales['sv'] = {
   -- Custom
   ['license_check'] = 'hantera licenser',
   ['license_retract'] = 'återkalla licens',
+  ['retracted_msg1'] = ' återkallade ~y~',
+  ['retracted_msg2'] = '~w~ som tillhörde dig!',
+  ['you_retracted_msg1'] = 'du återkallade ~y~',
+  ['you_retracted_msg2'] = '~w~ som tillhörde ~b~',
   ['jail'] = 'Fängelse',
   ['jail_menu_info'] = 'Fängelsetid i minuter',
   ['get_object'] = 'ta objekt',
