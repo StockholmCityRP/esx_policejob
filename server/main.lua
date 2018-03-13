@@ -88,23 +88,28 @@ end)
 
 RegisterServerEvent('esx_policejob:getStockItem')
 AddEventHandler('esx_policejob:getStockItem', function(itemName, count)
+	local _source = source
+	local xPlayer = ESX.GetPlayerFromId(_source)
+	local sourceItem = xPlayer.getInventoryItem(itemName)
+	TriggerEvent('esx_addoninventory:getSharedInventory', 'society_police', function(inventory)
 
-  local xPlayer = ESX.GetPlayerFromId(source)
+		local item = inventory.getItem(itemName)
 
-  TriggerEvent('esx_addoninventory:getSharedInventory', 'society_police', function(inventory)
-
-    local item = inventory.getItem(itemName)
-
-    if item.count >= count then
-      inventory.removeItem(itemName, count)
-      xPlayer.addInventoryItem(itemName, count)
-    else
-      TriggerClientEvent('esx:showNotification', xPlayer.source, _U('quantity_invalid'))
-    end
-
-    TriggerClientEvent('esx:showNotification', xPlayer.source, _U('have_withdrawn') .. count .. ' ' .. item.label)
-
-  end)
+		-- is there enough in the society?
+		if count > 0 and item.count >= count then
+		
+			-- can the player carry the said amount of x item?
+			if sourceItem.limit ~= -1 and (sourceItem.count + count) > sourceItem.limit then
+				TriggerClientEvent('esx:showNotification', _source, _U('player_cannot_hold'))
+			else
+				inventory.removeItem(itemName, count)
+				xPlayer.addInventoryItem(itemName, count)
+				TriggerClientEvent('esx:showNotification', _source, _U('have_withdrawn') .. count .. ' ' .. item.label)
+			end
+		else
+			TriggerClientEvent('esx:showNotification', _source, _U('not_enough_in_society'))
+		end
+	end)
 
 end)
 

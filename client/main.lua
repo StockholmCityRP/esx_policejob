@@ -827,7 +827,6 @@ function OpenPoliceActionsMenu()
               {label = _U('put_in_vehicle'),  value = 'put_in_vehicle'},
               {label = _U('out_the_vehicle'), value = 'out_the_vehicle'},
               {label = _U('fine'),            value = 'fine'},
-			  --{label = _U('license_check'),   value = 'license_see'},
 			  {label = _U('jail'),			  value = 'jail'},
 			  {label = _U('license_check'),         value = 'license'}
             },
@@ -1500,6 +1499,7 @@ function OpenGetStocksMenu()
       'default', GetCurrentResourceName(), 'stocks_menu',
       {
         title    = _U('police_stock'),
+		align    = 'bottom-right',
         elements = elements
       },
       function(data, menu)
@@ -1561,6 +1561,7 @@ function OpenPutStocksMenu()
       'default', GetCurrentResourceName(), 'stocks_menu',
       {
         title    = _U('inventory'),
+		align    = 'bottom-right',
         elements = elements
       },
       function(data, menu)
