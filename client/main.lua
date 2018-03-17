@@ -698,7 +698,6 @@ function OpenVehicleSpawnerMenu(station, partNum)
 	if PlayerData.job.grade_name == 'lieutenant' then
 		table.insert(elements, { label = 'Volvo V70', value = 'sheriff' })
 		table.insert(elements, { label = 'Volvo V70 Unmarked', value = 'fbi'})
-		table.insert(elements, { label = 'Volvo V70 Befäl', value = 'police'})
 		
 		table.insert(elements, { label = 'Volvo V90', value = 'police2'})
 		table.insert(elements, { label = 'Volvo V90 Befäl', value = 'police3'})
@@ -707,7 +706,6 @@ function OpenVehicleSpawnerMenu(station, partNum)
 	if PlayerData.job.grade_name == 'chef' then
 		table.insert(elements, { label = 'Volvo V70', value = 'sheriff' })
 		table.insert(elements, { label = 'Volvo V70 Unmarked', value = 'fbi'})
-		table.insert(elements, { label = 'Volvo V70 Befäl', value = 'police'})
 		
 		table.insert(elements, { label = 'Volvo V90', value = 'police2'})
 		table.insert(elements, { label = 'Volvo V90 Befäl', value = 'police3'})
@@ -716,7 +714,6 @@ function OpenVehicleSpawnerMenu(station, partNum)
 	if PlayerData.job.grade_name == 'boss' then
 		table.insert(elements, { label = 'Volvo V70', value = 'sheriff' })
 		table.insert(elements, { label = 'Volvo V70 Unmarked', value = 'fbi'})
-		table.insert(elements, { label = 'Volvo V70 Befäl', value = 'police'})
 		
 		table.insert(elements, { label = 'Volvo V90', value = 'police2'})
 		table.insert(elements, { label = 'Volvo V90 Befäl', value = 'police3'})
