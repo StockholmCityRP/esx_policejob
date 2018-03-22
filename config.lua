@@ -42,7 +42,7 @@ Config.PoliceStations = {
     },
 
     Cloakrooms = {
-      { x = 452.600, y = -993.306, z = 29.750 },
+      { x = 452.600, y = -993.306, z = 29.500 },
     },
 
     Armories = {
