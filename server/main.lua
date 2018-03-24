@@ -503,7 +503,7 @@ end)
 
 ESX.RegisterServerCallback('esx_policejob:isCop', function(source, cb)
 	local xPlayer = ESX.GetPlayerFromId(source)
-	cb(xPlayer.job ~= nil and xPlayer.job.name == 'police')
+	cb(xPlayer ~= nil and xPlayer.job ~= nil and xPlayer.job.name == 'police')
 end)
 
 AddEventHandler('onResourceStart', function(resource)
