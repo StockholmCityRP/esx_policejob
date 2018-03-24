@@ -23,6 +23,8 @@ local CurrentActionData         = {}
 local IsHandcuffed              = false
 local IsDragged                 = false
 local CopPed                    = 0
+local hasAlreadyJoined          = false
+local blipsCops                 = {}
 
 ESX                             = nil
 GUI.Time                        = 0
@@ -321,12 +323,12 @@ function OpenArmoryMenu(station)
         end
 
         if data.current.value == 'put_stock' then
-              OpenPutStocksMenu()
-            end
+          OpenPutStocksMenu()
+        end
 
-            if data.current.value == 'get_stock' then
-              OpenGetStocksMenu()
-            end
+        if data.current.value == 'get_stock' then
+          OpenGetStocksMenu()
+        end
 
       end,
       function(data, menu)
@@ -599,15 +601,15 @@ function OpenPoliceActionsMenu()
             title    = _U('citizen_interaction'),
             align    = 'bottom-right',
             elements = {
-              {label = _U('id_card'),       value = 'identity_card'},
-              {label = _U('search'),        value = 'body_search'},
-              {label = _U('handcuff'),    value = 'handcuff'},
-              {label = _U('drag'),      value = 'drag'},
+              {label = _U('id_card'),         value = 'identity_card'},
+              {label = _U('search'),          value = 'body_search'},
+              {label = _U('handcuff'),        value = 'handcuff'},
+              {label = _U('drag'),            value = 'drag'},
               {label = _U('put_in_vehicle'),  value = 'put_in_vehicle'},
               {label = _U('out_the_vehicle'), value = 'out_the_vehicle'},
               {label = _U('fine'),            value = 'fine'},
-			  {label = _U('jail'),			  value = 'jail'},
-			  {label = _U('license_check'),         value = 'license'}
+			  {label = _U('jail'),            value = 'jail'},
+			  {label = _U('license_check'),   value = 'license'}
             },
           },
           function(data2, menu2)
@@ -643,9 +645,11 @@ function OpenPoliceActionsMenu()
               if data2.current.value == 'fine' then
                 OpenFineMenu(player)
               end
+			  
 			  if data2.current.value == 'license' then
 				ShowPlayerLicense(player)
 			  end
+			  
 			  if data2.current.value == 'jail' then
 				JailPlayer(GetPlayerServerId(player))
 			  end
@@ -1266,8 +1270,6 @@ function OpenGetStocksMenu()
 
   ESX.TriggerServerCallback('esx_policejob:getStockItems', function(items)
 
-    --print(json.encode(items))
-
     local elements = {}
 
     for i=1, #items, 1 do
@@ -1389,7 +1391,10 @@ end)
 
 RegisterNetEvent('esx:setJob')
 AddEventHandler('esx:setJob', function(job)
-  PlayerData.job = job
+	PlayerData.job = job
+	
+	Citizen.Wait(5000)
+	TriggerServerEvent('esx_policejob:forceBlip')
 end)
 
 RegisterNetEvent('esx_phone:loaded')
@@ -1886,15 +1891,12 @@ Citizen.CreateThread(function()
 
   end
 end)
-
 -- Key Controls
 Citizen.CreateThread(function()
   while true do
 
     Citizen.Wait(10)
-
     if CurrentAction ~= nil then
-
       SetTextComponentFormat('STRING')
       AddTextComponentString(CurrentActionMsg)
       DisplayHelpTextFromStringLabel(0, 0, 1, -1)
@@ -2011,3 +2013,56 @@ function ShowPlayerLicense(player)
 
 	end, GetPlayerServerId(player))
 end
+
+function createBlip(id)
+	ped = GetPlayerPed(id)
+	blip = GetBlipFromEntity(ped)
+	
+	if not DoesBlipExist(blip) then -- Add blip and create head display on player
+		blip = AddBlipForEntity(ped)
+		SetBlipSprite(blip, 1)
+		Citizen.InvokeNative(0x5FBCA48327B914DF, blip, true) -- Player Blip indicator
+		SetBlipRotation(blip, math.ceil(GetEntityHeading(veh))) -- update rotation
+		SetBlipNameToPlayerName(blip, id) -- update blip name
+		SetBlipScale(blip, 0.85) -- set scale
+		SetBlipAsShortRange(blip, true)
+		
+		table.insert(blipsCops, blip) -- add blip to array so we can remove it later
+	end
+end
+
+RegisterNetEvent('esx_policejob:updateBlip')
+AddEventHandler('esx_policejob:updateBlip', function()
+	
+	-- Refresh all blips
+	for k, existingBlip in pairs(blipsCops) do
+		RemoveBlip(existingBlip)
+	end
+	
+	-- Clean the blip table
+	blipsCops = {}
+	
+	ESX.TriggerServerCallback('esx_policejob:isCop', function(isCop)
+		if isCop then
+			ESX.TriggerServerCallback('esx_society:getOnlinePlayers', function(players)
+				for i=1, #players, 1 do
+					if players[i].job.name == 'police' then
+						for id = 0, 32 do
+							if NetworkIsPlayerActive(id) and GetPlayerPed(id) ~= GetPlayerPed(-1) and GetPlayerName(id) == players[i].name then
+								createBlip(id)
+							end
+						end
+					end
+				end
+			end)
+		end
+	end) -- You don't need to specify source
+
+end)
+
+AddEventHandler('playerSpawned', function(spawn)
+	if not hasAlreadyJoined then
+		TriggerServerEvent('esx_policejob:spawned')
+	end
+	hasAlreadyJoined = true
+end)
