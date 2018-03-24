@@ -478,7 +478,7 @@ AddEventHandler('playerDropped', function()
 		local xPlayer = ESX.GetPlayerFromId(_source)
 		
 		-- Is it worth telling all clients to refresh?
-		if xPlayer.job ~= nil and xPlayer.job.name == 'police' then
+		if xPlayer ~= nil and xPlayer.job ~= nil and xPlayer.job.name == 'police' then
 			Citizen.Wait(5000)
 			TriggerClientEvent('esx_policejob:updateBlip', -1)
 		end
@@ -490,7 +490,7 @@ AddEventHandler('esx_policejob:spawned', function()
 	local _source = source
 	local xPlayer = ESX.GetPlayerFromId(_source)
 	
-	if xPlayer.job ~= nil and xPlayer.job.name == 'police' then
+	if xPlayer ~= nil and xPlayer.job ~= nil and xPlayer.job.name == 'police' then
 		Citizen.Wait(5000)
 		TriggerClientEvent('esx_policejob:updateBlip', -1)
 	end
