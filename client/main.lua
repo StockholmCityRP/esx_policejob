@@ -108,7 +108,6 @@ function OpenCloakroomMenu()
 			else
 				TriggerEvent('skinchanger:loadClothes', skin, jobSkin.skin_female)
 			end
-			setComponentByGrade(skin.sex)
 		end)
 	end
 
