@@ -435,71 +435,24 @@ function OpenVehicleSpawnerMenu(station, partNum)
 	
 	
 	if PlayerData.job.grade_name == 'recruit' then
-		table.insert(elements, { label = 'Aspirantbil', value = 'sheriff'})
-	end
-	
-	if PlayerData.job.grade_name == 'officer' then
-		table.insert(elements, { label = 'Aspirantbil', value = 'sheriff'})
-		table.insert(elements, { label = 'Officerbil', value = 'police'})
-		table.insert(elements, { label = 'CIV Officerbil', value = 'police4'})
-		table.insert(elements, { label = 'Polismotorcyckel', value = 'policeb'})
-		table.insert(elements, { label = 'Blaine-Bil Liten', value = 'policeold1'})
-		table.insert(elements, { label = 'Blaine-Bil Stor', value = 'policeold2'})
-	end
-
-	if PlayerData.job.grade_name == 'sergeant' then
-		table.insert(elements, { label = 'Aspirantbil', value = 'sheriff'})
-		table.insert(elements, { label = 'Officerbil', value = 'police'})
-		table.insert(elements, { label = 'CIV Officerbil', value = 'police4'})
-		table.insert(elements, { label = 'Polismotorcyckel', value = 'policeb'})
-		table.insert(elements, { label = 'Blaine-Bil Liten', value = 'policeold1'})
-		table.insert(elements, { label = 'Blaine-Bil Stor', value = 'policeold2'})
-	end
-	
-	
-	
-	if PlayerData.job.grade_name == 'intendent' then
-		table.insert(elements, { label = 'Aspirantbil', value = 'sheriff'})
-		table.insert(elements, { label = 'Officerbil', value = 'police'})
-		table.insert(elements, { label = 'CIV Officerbil', value = 'police4'})
-		table.insert(elements, { label = 'Polismotorcyckel', value = 'policeb'})
-		table.insert(elements, { label = 'Blaine-Bil Liten', value = 'policeold1'})
-		table.insert(elements, { label = 'Blaine-Bil Stor', value = 'policeold2'})
-	end
-
-	if PlayerData.job.grade_name == 'lieutenant' then
-		table.insert(elements, { label = 'Aspirantbil', value = 'sheriff'})
-		table.insert(elements, { label = 'Officerbil', value = 'police'})
-		table.insert(elements, { label = 'CIV Officerbil', value = 'police4'})
-		table.insert(elements, { label = 'Polismotorcyckel', value = 'policeb'})
-		table.insert(elements, { label = 'Blaine-Bil Liten', value = 'policeold1'})
-		table.insert(elements, { label = 'Blaine-Bil Stor', value = 'policeold2'})
-	end
-	
-	if PlayerData.job.grade_name == 'chef' then
-		table.insert(elements, { label = 'Aspirantbil', value = 'sheriff'})
-		table.insert(elements, { label = 'Officerbil', value = 'police'})
-		table.insert(elements, { label = 'CIV Officerbil', value = 'police4'})
-		table.insert(elements, { label = 'Polismotorcyckel', value = 'policeb'})
-		table.insert(elements, { label = 'Blaine-Bil Liten', value = 'policeold1'})
-		table.insert(elements, { label = 'Blaine-Bil Stor', value = 'policeold2'})
-		table.insert(elements, { label = 'GTR', value = 'fbi'})
-		table.insert(elements, { label = 'Insatsstyrkan', value = 'fbi2'})
-		table.insert(elements, { label = 'Dodge Charger', value = 'police2'})
-		table.insert(elements, { label = 'SUV', value = 'police3'})
-	end
-	
-	if PlayerData.job.grade_name == 'boss' then
-		table.insert(elements, { label = 'Aspirantbil', value = 'sheriff'})
-		table.insert(elements, { label = 'Officerbil', value = 'police'})
-		table.insert(elements, { label = 'CIV Officerbil', value = 'police4'})
-		table.insert(elements, { label = 'Polismotorcyckel', value = 'policeb'})
-		table.insert(elements, { label = 'Blaine-Bil Liten', value = 'policeold1'})
-		table.insert(elements, { label = 'Blaine-Bil Stor', value = 'policeold2'})
-		table.insert(elements, { label = 'GTR', value = 'fbi'})
-		table.insert(elements, { label = 'Insatsstyrkan', value = 'fbi2'})
-		table.insert(elements, { label = 'Dodge Charger', value = 'police2'})
-		table.insert(elements, { label = 'SUV', value = 'police3'})
+		table.insert(elements, { label = 'Ford Crown Victoria Police Interceptor 2010', value = 'police'})
+	elseif PlayerData.job.grade_name == 'officer' then
+		table.insert(elements, { label = 'Ford Crown Victoria Police Interceptor 2010', value = 'police'})
+		table.insert(elements, { label = 'Ford Explorer 2016', value = 'police2'})
+	elseif PlayerData.job.grade_name == 'sergeant' then
+		table.insert(elements, { label = 'Ford Explorer 2016', value = 'police2'})
+		table.insert(elements, { label = 'Ford Police Interceptor Sedan 2016', value = 'police3'})
+	elseif PlayerData.job.grade_name == 'intendent' then
+		table.insert(elements, { label = 'Ford Crown Victoria Police Interceptor 2010', value = 'police'})
+		table.insert(elements, { label = 'Ford Explorer 2016', value = 'police2'})
+		table.insert(elements, { label = 'Ford Police Interceptor Sedan 2016', value = 'police3'})
+		table.insert(elements, { label = 'Ford Explorer (Slick-Top) 2016', value = 'fbi2'})
+	else
+		table.insert(elements, { label = 'Ford Crown Victoria Police Interceptor 2010', value = 'police'})
+		table.insert(elements, { label = 'Ford Explorer 2016', value = 'police2'})
+		table.insert(elements, { label = 'Ford Police Interceptor Sedan 2016', value = 'police3'})
+		table.insert(elements, { label = 'Ford Explorer (Slick-Top) 2016', value = 'fbi2'})
+		table.insert(elements, { label = 'Ford Crown Victoria Police Interceptor (Slick-Top) 2010', value = 'sheriff'})
 	end
 
     ESX.UI.Menu.Open(
