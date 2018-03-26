@@ -431,22 +431,20 @@ function OpenVehicleSpawnerMenu(station, partNum)
   else
 
 	local elements = {}
-
+	local playerJob = PlayerData.job.grade_name
 	
-	
-	if PlayerData.job.grade_name == 'recruit' then
+	if playerJob == 'recruit' then
 		table.insert(elements, { label = 'Ford Crown Victoria Police Interceptor 2010', value = 'police'})
-	elseif PlayerData.job.grade_name == 'officer' then
+	elseif playerJob == 'officer' then
 		table.insert(elements, { label = 'Ford Crown Victoria Police Interceptor 2010', value = 'police'})
 		table.insert(elements, { label = 'Ford Explorer 2016', value = 'police2'})
-	elseif PlayerData.job.grade_name == 'sergeant' then
+	elseif playerJob == 'sergeant' then
 		table.insert(elements, { label = 'Ford Explorer 2016', value = 'police2'})
 		table.insert(elements, { label = 'Ford Police Interceptor Sedan 2016', value = 'police3'})
-	elseif PlayerData.job.grade_name == 'intendent' then
+	elseif playerJob == 'intendent' or playerJob == 'lieutenant' then
 		table.insert(elements, { label = 'Ford Crown Victoria Police Interceptor 2010', value = 'police'})
 		table.insert(elements, { label = 'Ford Explorer 2016', value = 'police2'})
 		table.insert(elements, { label = 'Ford Police Interceptor Sedan 2016', value = 'police3'})
-		table.insert(elements, { label = 'Ford Explorer (Slick-Top) 2016', value = 'fbi2'})
 	else
 		table.insert(elements, { label = 'Ford Crown Victoria Police Interceptor 2010', value = 'police'})
 		table.insert(elements, { label = 'Ford Explorer 2016', value = 'police2'})
