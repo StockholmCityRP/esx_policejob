@@ -11,6 +11,11 @@ Locales['sv'] = {
   ['jail_menu_info'] = 'Fängelsetid i minuter',
   ['get_object'] = 'ta objekt',
   ['put_object'] = 'sätt in objekt',
+  ['search_database'] = 'fordonsuppgifter',
+  ['search_database_title'] = 'fordonsuppgifter - sök med registreringsnummer',
+  ['search_database_error_invalid'] = 'det är ~r~inte~w~ ett ~y~giltigt~w~ registreringsnummer',
+  ['search_database_error_not_found'] = 'det ~y~registreringsnummeret~w~ är ~r~inte~w~ registrerat till något fordon!',
+  ['search_database_found'] = 'detta fordon är ~y~registrerat~w~ till ~b~%s',
   -- Cloakroom
   ['cloakroom'] = 'omklädningsrum',
   ['citizen_wear'] = 'civil kläder',

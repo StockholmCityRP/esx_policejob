@@ -617,32 +617,41 @@ function OpenPoliceActionsMenu()
       end
 
       if data.current.value == 'vehicle_interaction' then
+		
+		local elements = {}
+		local playerPed = GetPlayerPed(-1)
+		local coords    = GetEntityCoords(playerPed)
+		local vehicle   = GetClosestVehicle(coords.x,  coords.y,  coords.z,  3.0,  0,  71)
+		
+		if DoesEntityExist(vehicle) then
+			table.insert(elements, { label = _U('vehicle_info'), value = 'vehicle_infos'} )
+			table.insert(elements, { label = _U('pick_lock'),    value = 'hijack_vehicle'} )
+		end
+		
+		table.insert(elements, { label = _U('search_database'), value = 'search_database'} )
 
         ESX.UI.Menu.Open(
           'default', GetCurrentResourceName(), 'vehicle_interaction',
           {
             title    = _U('vehicle_interaction'),
             align    = 'bottom-right',
-            elements = {
-              {label = _U('vehicle_info'), value = 'vehicle_infos'},
-              {label = _U('pick_lock'),    value = 'hijack_vehicle'},
-            },
+            elements = elements
           },
           function(data2, menu2)
 
-            local playerPed = GetPlayerPed(-1)
-            local coords    = GetEntityCoords(playerPed)
-            local vehicle   = GetClosestVehicle(coords.x,  coords.y,  coords.z,  3.0,  0,  71)
-
-            if DoesEntityExist(vehicle) then
+            playerPed = GetPlayerPed(-1)
+            coords    = GetEntityCoords(playerPed)
+            vehicle   = GetClosestVehicle(coords.x,  coords.y,  coords.z,  3.0,  0,  71)
+			
+			if data2.current.value == 'search_database' then
+				LookupVehicle()
+            elseif DoesEntityExist(vehicle) then
 
               local vehicleData = ESX.Game.GetVehicleProperties(vehicle)
 
               if data2.current.value == 'vehicle_infos' then
                 OpenVehicleInfosMenu(vehicleData)
-              end
-
-              if data2.current.value == 'hijack_vehicle' then
+              elseif data2.current.value == 'hijack_vehicle' then
 
                 local playerPed = GetPlayerPed(-1)
                 local coords    = GetEntityCoords(playerPed)
@@ -1510,7 +1519,7 @@ end)
 
 Citizen.CreateThread(function()
   while true do
-    Wait(0)
+    Citizen.Wait(10)
     if IsHandcuffed then
       if IsDragged then
         local ped = GetPlayerPed(GetPlayerFromServerId(CopPed))
@@ -1569,7 +1578,7 @@ end)
 -- Handcuff
 Citizen.CreateThread(function()
   while true do
-    Wait(0)
+    Citizen.Wait(10)
     if IsHandcuffed then
       DisableControlAction(0, 142, true) -- MeleeAttackAlternate
       DisableControlAction(0, 30,  true) -- MoveLeftRight
@@ -1606,7 +1615,7 @@ end)
 Citizen.CreateThread(function()
   while true do
 
-    Wait(0)
+    Citizen.Wait(10)
 
     if PlayerData.job ~= nil and PlayerData.job.name == 'police' then
 
@@ -1661,7 +1670,7 @@ Citizen.CreateThread(function()
 
   while true do
 
-    Wait(0)
+    Citizen.Wait(10)
 
     if PlayerData.job ~= nil and PlayerData.job.name == 'police' then
 
@@ -1916,7 +1925,6 @@ Citizen.CreateThread(function()
       end
 
     end
-
     if IsControlPressed(0,  Keys['F6']) and PlayerData.job ~= nil and PlayerData.job.name == 'police' and not ESX.UI.Menu.IsOpen('default', GetCurrentResourceName(), 'police_actions') and (GetGameTimer() - GUI.Time) > 150 then
       OpenPoliceActionsMenu()
       GUI.Time = GetGameTimer()
@@ -1924,6 +1932,33 @@ Citizen.CreateThread(function()
 
   end
 end)
+
+function LookupVehicle()
+	ESX.UI.Menu.Open(
+		'dialog', GetCurrentResourceName(), 'lookup_vehicle',
+		{
+			title = _U('search_database_title'),
+		},
+	function (data, menu)
+		local length = string.len(data.value)
+		if data.value == nil or length < 8 or length > 13 then
+			ESX.ShowNotification(_U('search_database_error_invalid'))
+		else
+			ESX.TriggerServerCallback('esx_policejob:getVehicleFromPlate', function(owner, found)
+				if found then
+					ESX.ShowNotification(_U('search_database_found', owner))
+				else
+					ESX.ShowNotification(_U('search_database_error_not_found'))
+				end
+			end, data.value)
+			menu.close()
+		end
+	end,
+	function (data, menu)
+		menu.close()
+	end
+	)
+end
 
 function ShowPlayerLicense(player)
 	local elements = {}
