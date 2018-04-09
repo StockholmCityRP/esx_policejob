@@ -449,7 +449,8 @@ function OpenVehicleSpawnerMenu(station, partNum)
 		table.insert(elements, { label = 'Ford Crown Victoria Police Interceptor 2010', value = 'police'})
 		table.insert(elements, { label = 'Ford Explorer 2016', value = 'police2'})
 		table.insert(elements, { label = 'Ford Police Interceptor Sedan 2016', value = 'police3'})
-		table.insert(elements, { label = 'Ford Explorer (Slick-Top) 2016', value = 'fbi2'})
+		table.insert(elements, { label = 'Dodge Charger Unmarked', value = 'fbi2'})
+		table.insert(elements, { label = 'Chevrolet Silverado Unmarked', value = 'fbi'})
 		table.insert(elements, { label = 'Ford Crown Victoria Police Interceptor (Slick-Top) 2010', value = 'sheriff'})
 	end
 
